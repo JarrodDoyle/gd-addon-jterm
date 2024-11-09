@@ -69,13 +69,13 @@ func _command_help() -> String:
 			arg_string += "%s:" % arg["name"]
 			var arg_type: int = arg["type"]
 			match arg_type:
-				TYPE_NIL: arg_string += "Nil"
-				TYPE_STRING: arg_string += "String"
-				TYPE_STRING_NAME: arg_string += "String"
-				TYPE_INT: arg_string += "Int"
-				TYPE_FLOAT: arg_string += "Float"
-				TYPE_BOOL: arg_string += "Bool"
-				_: arg_string += "Unknown"
+				TYPE_NIL: arg_string += "NIL"
+				TYPE_STRING: arg_string += "STRING"
+				TYPE_STRING_NAME: arg_string += "STRING"
+				TYPE_INT: arg_string += "INT"
+				TYPE_FLOAT: arg_string += "FLOAT"
+				TYPE_BOOL: arg_string += "BOOL"
+				_: arg_string += "UNKNOWN"
 			args_left -= 1
 
 		if command.num_default_args > 0:
