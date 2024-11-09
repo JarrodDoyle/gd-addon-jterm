@@ -1,5 +1,5 @@
 <p align="center">
-<img height="128" src="icon.png" alt="JTerm logo">
+<img height="128" src="media/icon.png" alt="JTerm logo">
 </p>
 
 # JTerm - An in-game console for Godot 4
