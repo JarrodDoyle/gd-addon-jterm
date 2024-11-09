@@ -51,22 +51,27 @@ func _command_help() -> String:
 	var output  := "[color=bisque]Commands:[/color]"
 	var max_len := 0
 
+	# We don't have typed dictionaries yet, so we store the two parts as separate arrays
 	var arg_strings: Array[String] = []
 	var arg_descs: Array[String]   = []
 	for name in list_commands():
 		var command := _commands[name] as ConsoleCommand
 
 		var arg_string := ""
+		var args_left  := command.args.size()
 		arg_string += "[color=greenyellow]%s[/color]" % name
 		arg_string += "[color=gray]"
 
-		var args_left := command.args.size()
 		for arg: Dictionary in command.args:
 			arg_string += " "
+
+			# Optional parameters
 			if args_left == command.num_default_args:
 				arg_string += "("
 
 			arg_string += "%s:" % arg["name"]
+
+			# Crappy conversion of parameter types to a string
 			var arg_type: int = arg["type"]
 			match arg_type:
 				TYPE_NIL: arg_string += "NIL"
@@ -78,6 +83,7 @@ func _command_help() -> String:
 				_: arg_string += "UNKNOWN"
 			args_left -= 1
 
+		# Don't forget to close out the optional parameters!
 		if command.num_default_args > 0:
 			arg_string += ")"
 		arg_string += "[/color]"
@@ -88,6 +94,7 @@ func _command_help() -> String:
 			max_len = arg_string.length()
 
 	for i in arg_strings.size():
+		# We pad them out with monospace font so that the descriptions align
 		var arg_string := arg_strings[i].rpad(max_len + 2, " ")
 		var arg_desc   := arg_descs[i]
 		output += "\n[code] %s [/code] %s" % [arg_string, arg_desc]
