@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxtdhrjqn1vx3"]
+
+[ext_resource type="Script" path="res://addons/jayrude/console/gui/console.gd" id="1_nwxuh"]
+
+[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("input", "output")]
+process_mode = 3
+script = ExtResource("1_nwxuh")
+input = NodePath("VBoxContainer/Input")
+output = NodePath("VBoxContainer/Output")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -294.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="Output" type="TextEdit" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+editable = false
+
+[node name="Input" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
