@@ -64,7 +64,7 @@ func _command_help() -> String:
 		for arg: Dictionary in command.args:
 			arg_string += " "
 			if args_left == command.num_default_args:
-				arg_string += "[lb]"
+				arg_string += "("
 
 			arg_string += "%s:" % arg["name"]
 			var arg_type: int = arg["type"]
@@ -79,7 +79,7 @@ func _command_help() -> String:
 			args_left -= 1
 
 		if command.num_default_args > 0:
-			arg_string += "]"
+			arg_string += ")"
 		arg_string += "[/color]"
 		arg_strings.append(arg_string)
 		arg_descs.append(command.description)
