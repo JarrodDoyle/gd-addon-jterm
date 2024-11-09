@@ -5,6 +5,7 @@ extends EditorPlugin
 const AUTOLOAD_NAME := "Console"
 const AUTOLOAD_PATH := "res://addons/jayrude/console/service/console_service.gd"
 
+
 func _enter_tree() -> void:
 	add_autoload_singleton(AUTOLOAD_NAME, AUTOLOAD_PATH)
 	add_action("console_toggle", [KEY_QUOTELEFT])
@@ -19,12 +20,12 @@ func add_action(name: String, inputs) -> void:
 	var setting_name := "input/%s" % name
 	if ProjectSettings.has_setting(setting_name):
 		return
-	
-	var events :=  []
+
+	var events := []
 	for input in inputs:
 		var event = InputEventKey.new()
 		event.keycode = input
 		events.push_back(event)
-	
+
 	ProjectSettings.set_setting(setting_name, {"deadzone": 0.5, "events": events})
 	ProjectSettings.save()

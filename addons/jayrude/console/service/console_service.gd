@@ -2,10 +2,7 @@
 class_name ConsoleService
 extends Node
 
-
 signal printed(string: String)
-
-
 var _commands: Dictionary
 
 
@@ -21,7 +18,7 @@ func has_command(name: String) -> bool:
 	return _commands.has(name)
 
 
-func add_command(name: String, function:  Callable, description: String = "") -> void:
+func add_command(name: String, function: Callable, description: String = "") -> void:
 	if not has_command(name):
 		_commands[name] = ConsoleCommand.new(name, function, description)
 
@@ -38,8 +35,8 @@ func execute(input: String) -> void:
 	var tokens: PackedStringArray = input.split(" ", false)
 	if tokens.is_empty():
 		return
-		
-	var name: String = tokens[0]
+
+	var name: String            = tokens[0]
 	var args: PackedStringArray = tokens.slice(1)
 	if has_command(name):
 		var result: String = _commands[name].execute(args)
