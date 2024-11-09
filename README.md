@@ -2,9 +2,9 @@
 <img height="128" src="media/icon.png" alt="JTerm logo">
 </p>
 
-# JTerm - An in-game console for Godot 4
+# JTerm
 
-A simple console system with automated argument name and type recognition.
+A simple in-game console system for Godot 4 with automated argument name and type recognition.
 
 ## Command registration
 
