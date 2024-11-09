@@ -1,26 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxtdhrjqn1vx3"]
+[gd_scene load_steps=3 format=3 uid="uid://bxtdhrjqn1vx3"]
 
 [ext_resource type="Script" path="res://addons/jayrude/console/gui/console.gd" id="1_nwxuh"]
+[ext_resource type="FontFile" uid="uid://cd12q6ce1qs1g" path="res://addons/jayrude/console/fonts/FiraCode-Regular.ttf" id="2_lsm63"]
 
 [node name="Console" type="CanvasLayer" node_paths=PackedStringArray("input", "output")]
 process_mode = 3
 script = ExtResource("1_nwxuh")
-input = NodePath("VBoxContainer/Input")
-output = NodePath("VBoxContainer/Output")
+input = NodePath("PanelContainer/VBoxContainer/Input")
+output = NodePath("PanelContainer/VBoxContainer/OutputRich")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -294.0
+offset_bottom = -248.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
 alignment = 2
 
-[node name="Output" type="TextEdit" parent="VBoxContainer"]
+[node name="OutputRich" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-editable = false
+theme_override_fonts/mono_font = ExtResource("2_lsm63")
+bbcode_enabled = true
+scroll_following = true
 
-[node name="Input" type="LineEdit" parent="VBoxContainer"]
+[node name="Input" type="LineEdit" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2

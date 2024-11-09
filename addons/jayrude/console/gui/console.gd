@@ -1,11 +1,12 @@
 extends CanvasLayer
 
 @export var input: LineEdit
-@export var output: TextEdit
+@export var output: RichTextLabel
 
 var _enabled: bool = false
 var _was_paused: bool
 var _was_mouse_mode: Input.MouseMode
+
 
 func _ready() -> void:
 	input.connect("text_submitted", _on_text_submitted)
@@ -13,7 +14,8 @@ func _ready() -> void:
 	Console.add_command("clear", _clear_command, "Clears console output")
 	hide()
 
-func _process(delta: float) -> void:
+
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("console_toggle"):
 		_enabled = !_enabled
 		if _enabled:
@@ -31,14 +33,13 @@ func _process(delta: float) -> void:
 
 
 func _on_text_submitted(text: String) -> void:
-	output.text += "$ %s\n" %  text
+	output.append_text("$ [color=gray]%s[/color]\n" % text)
 	Console.execute(text)
 	input.text = ""
-	
+
 
 func _on_console_printed(text: String) -> void:
-	output.text += text
-	output.scroll_vertical = INF
+	output.append_text(text)
 
 
 func _clear_command() -> void:
