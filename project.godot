@@ -13,7 +13,7 @@ config_version=5
 config/name="Addon JTerm"
 run/main_scene="res://addons/jayrude/console/gui/console.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.png"
+config/icon="res://media/icon.png"
 
 [autoload]
 
