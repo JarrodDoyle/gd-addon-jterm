@@ -50,7 +50,7 @@ func _convert_arg(arg: String, type: int) -> Variant:
 
 func execute(exec_args: PackedStringArray) -> String:
 	var num_args: int = exec_args.size()
-	var max_args: int = exec_args.size()
+	var max_args: int = args.size()
 	var min_args: int = max_args - num_default_args
 	if num_args > max_args or num_args < min_args:
 		return "Invalid argument count: %s received, %s to %s expected." % [num_args, min_args, max_args]
