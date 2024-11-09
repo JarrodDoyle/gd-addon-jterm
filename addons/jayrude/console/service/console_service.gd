@@ -69,18 +69,16 @@ func _command_help() -> String:
 			if args_left == command.num_default_args:
 				arg_string += "("
 
-			arg_string += "%s:" % arg["name"]
+			arg_string += "%s" % arg["name"]
 
 			# Crappy conversion of parameter types to a string
 			var arg_type: int = arg["type"]
 			match arg_type:
-				TYPE_NIL: arg_string += "NIL"
-				TYPE_STRING: arg_string += "STRING"
-				TYPE_STRING_NAME: arg_string += "STRING"
-				TYPE_INT: arg_string += "INT"
-				TYPE_FLOAT: arg_string += "FLOAT"
-				TYPE_BOOL: arg_string += "BOOL"
-				_: arg_string += "UNKNOWN"
+				TYPE_STRING: arg_string += ":STRING"
+				TYPE_STRING_NAME: arg_string += ":STRING"
+				TYPE_INT: arg_string += ":INT"
+				TYPE_FLOAT: arg_string += ":FLOAT"
+				TYPE_BOOL: arg_string += ":BOOL"
 			args_left -= 1
 
 		# Don't forget to close out the optional parameters!
