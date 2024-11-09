@@ -3,7 +3,7 @@ extends RefCounted
 
 var name: StringName
 var description: String
-var arg_types: PackedInt32Array
+var args: Array[Dictionary]
 var num_default_args: int
 var _function: Callable
 
@@ -14,10 +14,8 @@ func _init(name: StringName, function: Callable, description: String) -> void:
 	self.description = description
 
 	var method_info: Dictionary = _get_method_info(_function)
-	var args: Array[Dictionary] = method_info["args"]
+	args = method_info["args"]
 	num_default_args = Array(method_info["default_args"]).size()
-	for i in args.size():
-		arg_types.push_back(args[i]["type"])
 
 
 func _get_method_info(function: Callable) -> Dictionary:
@@ -50,16 +48,16 @@ func _convert_arg(arg: String, type: int) -> Variant:
 	return null
 
 
-func execute(args: PackedStringArray) -> String:
-	var num_args: int = args.size()
-	var max_args: int = arg_types.size()
+func execute(exec_args: PackedStringArray) -> String:
+	var num_args: int = exec_args.size()
+	var max_args: int = exec_args.size()
 	var min_args: int = max_args - num_default_args
 	if num_args > max_args or num_args < min_args:
 		return "Invalid argument count: %s received, %s to %s expected." % [num_args, min_args, max_args]
 
 	var call_args: Array = []
 	for i in num_args:
-		call_args.push_back(_convert_arg(args[i], arg_types[i]))
+		call_args.push_back(_convert_arg(exec_args[i], args[i]["type"]))
 
 	var result = _function.callv(call_args)
 	return result if result is String else ""

@@ -59,8 +59,15 @@ func _command_help() -> String:
 		var arg_string := ""
 		arg_string += "[color=greenyellow]%s[/color]" % name
 		arg_string += "[color=gray]"
-		for arg_type: int in command.arg_types:
+
+		var args_left := command.args.size()
+		for arg: Dictionary in command.args:
 			arg_string += " "
+			if args_left == command.num_default_args:
+				arg_string += "[lb]"
+
+			arg_string += "%s:" % arg["name"]
+			var arg_type: int = arg["type"]
 			match arg_type:
 				TYPE_NIL: arg_string += "Nil"
 				TYPE_STRING: arg_string += "String"
@@ -69,12 +76,15 @@ func _command_help() -> String:
 				TYPE_FLOAT: arg_string += "Float"
 				TYPE_BOOL: arg_string += "Bool"
 				_: arg_string += "Unknown"
+			args_left -= 1
+
+		if command.num_default_args > 0:
+			arg_string += "]"
 		arg_string += "[/color]"
 		arg_strings.append(arg_string)
 		arg_descs.append(command.description)
 
 		if arg_string.length() > max_len:
-			print(arg_string.length())
 			max_len = arg_string.length()
 
 	for i in arg_strings.size():
