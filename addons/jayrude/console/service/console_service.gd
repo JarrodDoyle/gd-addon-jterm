@@ -8,7 +8,7 @@ var _commands: Dictionary
 
 func _ready() -> void:
 	add_command("help", _command_help, "Prints all registered commands and their description")
-	add_command("example", _command_example, "Example command")
+	add_command("dump_cmds", _command_dump_cmds, "Dumps help text to file")
 
 
 func _print(string: String) -> void:
@@ -102,5 +102,17 @@ func _command_help() -> String:
 	return output
 
 
-func _command_example(arg1: int, arg2: String, arg3: bool = false) -> void:
-	pass
+func _command_dump_cmds(output_path: String = "cmds.txt") -> String:
+	var local_path := "user://%s" % output_path
+	var file       := FileAccess.open(local_path, FileAccess.WRITE)
+	file.store_string(_strip_bbcode(_command_help()))
+
+	var global_path := ProjectSettings.globalize_path(local_path)
+	return "Dumped commands to '%s'" % global_path
+
+
+# https://github.com/godotengine/godot-proposals/issues/5056#issuecomment-1203033323
+func _strip_bbcode(source: String) -> String:
+	var regex = RegEx.new()
+	regex.compile("\\[.+?\\]")
+	return regex.sub(source, "", true)
