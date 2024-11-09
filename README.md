@@ -22,6 +22,23 @@ func _command_example(arg, typed_arg: int, optional_arg: bool = true) -> void:
     pass
 ```
 
+Projects using C# can also register and call commands, however it's slightly more verbose and C# commands cannot make use of default arguments.
+
+```csharp
+public override void _Ready()
+{
+    var console = GetNode("/root/Console");
+    var callable = new Callable(this, MethodName.Example);
+    console.Call("add_command", "example_cs", callable, "C# Example");
+}
+
+// This optional arg unfortunately isn't actually optional :(
+public void Example(Variant arg, int typed_arg, bool optional_arg = true)
+{
+    // Do stuff
+}
+```
+
 ## Console GUI
 
 JTerm comes with a simple pre-built GUI scene that can be found at `addons/jayrude/console/gui/console.tscn`. The GUI is not autoloaded by default to allow you to build your own, or only enable it in certain circumstances.
